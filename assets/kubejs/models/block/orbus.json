@@ -1,0 +1,8 @@
+{
+	"parent": "kubejs:item/sphere",
+    "textures": {
+        "texture0": "kubejs:block/orbus",
+		"partical": "kubejs:block/orbus"
+    },
+	"emissive_ambient": false
+}

@@ -1,0 +1,782 @@
+// Visit the wiki for more info - https://kubejs.com/
+console.info('Hello, World! (Loaded server example script)')
+
+ServerEvents.recipes(event => {
+/*
+	event.shapeless(
+		Item.of('exdeorum:wood_chippings', 1), // arg 1: output
+		[
+			Item.of('create_blaze_burner_fuels:wood_dust',8)
+		]
+	)
+*/
+	event.remove({})
+	
+	let goalItem = "kubejs:renderium_block"
+	let teirs = [["minecraft:oak_log","minecraft:oak_sappling","minecraft:stick","minecraft:apple"]]
+	let teirs_f = [[]]
+	let unlockedItems = ["minecraft:oak_log","minecraft:oak_sappling","minecraft:stick","minecraft:apple"]
+	let unlockedFluids = []
+	
+	let allItems = Item.getTypeList();
+	let allFluids = Fluid.getTypes();
+	let seed = 1234;
+	
+	allItems = allItems.filter(function(e) { return (e !== "minecraft:air") && (e !== "minecraft:barrier") })
+	
+	let allItemsUnused = allItems
+	
+	allFluids = allFluids.filter(function(e) { return (e !== "minecraft:empty") && (!e.includes(":flowing_")) })
+	
+	let allFluidsUnused = allFluids
+	
+	function rand(){
+		seed = (1103515245 * seed + 12345) % (2**31 - 1);
+		return seed;
+	}
+	
+	function canUseFluids(){
+		return (unlockedItems.includes("create:item_drain") && unlockedItems.includes("create:mechanical_pump") && unlockedItems.includes("create:fluid_pipe") && canPowerCreate() && hasGearCreate())
+	}
+	
+	function canPowerCreate(){
+		return (unlockedItems.includes("create:water_wheel")||unlockedItems.includes("create:large_water_wheel")||unlockedItems.includes("create:hand_crank"))
+	}
+	
+	function hasGearCreate(){
+		return (unlockedItems.includes("create:cogwheel")||unlockedItems.includes("create:large_cogwheel"))
+	}
+	
+	function getRandItem(){
+		return teirs[teirs.length - 1][rand() % ((teirs[teirs.length - 1].length - 1)]
+	}
+	function getRandFluid(){
+		let i = 0
+		while ((teirs_f[teirs_f.length - i - 1].length > 0) i >= teirs_f.length){
+			i++
+		}
+		if (teirs_f[teirs_f.length - i - 1].length > 0) {
+			return teirs_f[teirs_f.length - i - 1][rand() % (teirs_f[teirs_f.length - i - 1].length - 1)]
+		}else{ return false }
+	}
+	
+	function getTrueRandItem(){
+		if (allItemsUnused.length > 0) {
+			let a = allItemsUnused[rand() % allItemsUnused.length]
+			allItemsUnused = allItemsUnused.filter(function(e) { return e != a })
+			return a
+		}else{ return false }
+	}
+	function getTrueRandFluid(){
+		if (allFluidsUnused.length > 0) {
+			let a = allFluidsUnused[rand() % allFluidsUnused.length]
+			allFluidsUnused = allFluidsUnused.filter(function(e) { return e != a })
+			return a
+		}else{ return false }
+	}
+	
+	function recipe2x2_a(output){
+		event.shaped(
+			Item.of(output, 1), // arg 1: output
+			[
+				'AB',
+				'BA'
+			],
+			{
+				A: getRandItem(),
+				B: getRandItem()
+			}
+		)
+	}
+	
+	function recipe2x2_b(output){
+		event.shaped(
+			Item.of(output, 1), // arg 1: output
+			[
+				'AA',
+				'AA'
+			],
+			{
+				A: getRandItem()
+			}
+		)
+	}
+	
+	function recipe3x3_a(output){
+		event.shaped(
+			Item.of(output, 1), // arg 1: output
+			[
+				'ABA',
+				'BCB',
+				'ABA'
+			],
+			{
+				A: getRandItem(),
+				B: getRandItem(),
+				C: getRandItem()
+			}
+		)
+	}
+	function recipe3x3_b(output){
+		event.shaped(
+			Item.of(output, 1), // arg 1: output
+			[
+				'BBB',
+				' A ',
+				' A '
+			],
+			{
+				A: getRandItem(),
+				B: getRandItem()
+			}
+		)
+	}
+	function recipe3x3_c(output){
+		event.shaped(
+			Item.of(output, 1), // arg 1: output
+			[
+				' B ',
+				'BAB',
+				' B '
+			],
+			{
+				A: getRandItem(),
+				B: getRandItem()
+			}
+		)
+	}
+	function recipe3x3_d(output){
+		event.shaped(
+			Item.of(output, 1), // arg 1: output
+			[
+				'AAA',
+				'AAA',
+				'AAA'
+			],
+			{
+				A: getRandItem()
+			}
+		)
+	}
+	
+	function shapeless_a(output){
+		event.shapeless(
+			Item.of(output, 1),
+			[
+				getRandItem(),
+				getRandItem(),
+				getRandItem(),
+				getRandItem()
+			]
+		)
+	}
+	
+	function shapeless_b(output){
+		event.shapeless(
+			Item.of(output, 1),
+			[
+				getRandItem(),
+				getRandItem(),
+				getRandItem(),
+				getRandItem(),
+				getRandItem(),
+				getRandItem(),
+				getRandItem(),
+				getRandItem(),
+				getRandItem()
+			]
+		)
+	}
+	
+	function smithing(output){
+		event.smithing(
+			output,
+			getRandItem(),
+			getRandItem(),
+			getRandItem()
+		)
+	}
+	
+	function smelting_a(output){
+		event.smelting(output, getRandItem())
+	}
+	function smelting_b(output){
+		event.blasting(output, getRandItem())
+	}
+	function smelting_c(output){
+		event.smoking(output, getRandItem())
+	}
+	function smelting_d(output){
+		event.campfireCooking(output, getRandItem(), 0, 600)
+	}
+	
+	function stonecutting(output){
+		event.stonecutting(output, getRandItem())
+	}
+	
+	function filling(output){
+		event.custom({
+			"type": 'create:filling',
+			"ingredients": [
+				{
+					"item": getRandItem()
+				},
+				{
+					"type": 'fluid_stack',
+					"amount": ((rand() % 20)+1)*50,
+					"fluid": getRandFluid()
+				}
+			],
+			"results": [
+				{
+					"id": output
+				}
+			]
+		})
+	}
+	
+	function draining(output_f){
+		event.custom({
+			"type": 'create:emptying',
+			"ingredients": [
+				{
+					"item": getRandItem()
+				}
+			],
+			"results": [
+				{
+					"id": "minecraft:air"
+				},
+				{
+					"amount": ((rand() % 20)+1)*50,
+					"id": output_f
+				}
+			]
+		})
+	}
+	
+	function splashing(output){
+		event.custom({
+			"type": "create:splashing",
+			"ingredients": [
+				{
+					"item": getRandItem()
+				}
+			],
+			"results": [
+				{
+					"id": output
+				}
+			]
+		})
+	}
+	function sanding(output){
+		event.custom({
+			"type": "create:sandpaper_polishing",
+			"ingredients": [
+				{
+					"item": getRandItem()
+				}
+			],
+			"results": [
+				{
+					"id": output
+				}
+			]
+		})
+	}
+	function pressing(output){
+		event.custom({
+			"type": "create:pressing",
+			"ingredients": [
+				{
+					"item": getRandItem()
+				}
+			],
+			"results": [
+				{
+					"id": output
+				}
+			]
+		})
+	}
+	function milling(output){
+		event.custom({
+			"type": "create:milling",
+			"ingredients": [
+				{
+					"item": getRandItem()
+				}
+			],
+			"processing_time": (rand()%10)*50,
+			"results": [
+				{
+					"id": output
+				}
+			]
+		})
+	}
+	function deploying(output){
+		event.custom({
+			"type": "create:deploying",
+			"ingredients": [
+				{
+					"item": getRandItem()
+				},
+				{
+					"item": getRandItem()
+				}
+			],
+			"results": [
+				{
+					"id": output
+				}
+			]
+		})
+	}
+	function haunting(output){
+		event.custom({
+			"type": "create:haunting",
+			"ingredients": [
+				{
+					"item": getRandItem()
+				}
+			],
+			"results": [
+				{
+					"id": output
+				}
+			]
+		})
+	}
+	function crushing(output){
+		event.custom({
+			"type": "create:crushing",
+			"ingredients": [
+				{
+					"item": getRandItem()
+				}
+			],
+			"processing_time": (rand()%10)*50,
+			"results": [
+				{
+					"id": output
+				}
+			]
+		})
+	}
+	
+	function mechcraft_a(output){
+		event.custom({
+			"type": "create:mechanical_crafting",
+			"accept_mirrored": false,
+			"category": "misc",
+			"key": {
+				"A": {
+					"item": getRandItem()
+				},
+				"P": {
+					"item": getRandItem()
+				},
+				"S": {
+					"item": getRandItem()
+				}
+			},
+			"pattern": [
+				" AAA ",
+				"AAPAA",
+				"APSPA",
+				"AAPAA",
+				" AAA "
+			],
+			"result": {
+				"count": 1,
+				"id": output
+			},
+			"show_notification": false
+		})
+	}
+	function mechcraft_b(output){
+		event.custom({
+			"type": "create:mechanical_crafting",
+			"accept_mirrored": false,
+			"category": "misc",
+			"key": {
+				"A": {
+					"item": getRandItem()
+				},
+				"B": {
+					"item": getRandItem()
+				},
+				"C": {
+					"item": getRandItem()
+				},
+				"D": {
+					"item": getRandItem()
+				},
+				"E": {
+					"item": getRandItem()
+				}
+			},
+			"pattern": [
+				"AAAAAAAAA",
+				"ABBBBBBBA",
+				"ABCCCCCBA",
+				"ABCDDDCBA",
+				"ABCDEDCBA",
+				"ABCDDDCBA",
+				"ABCCCCCBA",
+				"ABBBBBBBA",
+				"AAAAAAAAA"
+			],
+			"result": {
+				"count": 1,
+				"id": output
+			},
+			"show_notification": false
+		})
+	}
+	function mechcraft_c(output){
+		event.custom({
+			"type": "create:mechanical_crafting",
+			"accept_mirrored": false,
+			"category": "misc",
+			"key": {
+				"A": {
+					"item": getRandItem()
+				},
+				"B": {
+					"item": getRandItem()
+				}
+			},
+			"pattern": [
+				"ABABABABA",
+				"BABABABAB",
+				"ABABABABA",
+				"BABABABAB",
+				"ABABABABA",
+				"BABABABAB",
+				"ABABABABA",
+				"BABABABAB",
+				"ABABABABA"
+			],
+			"result": {
+				"count": 1,
+				"id": output
+			},
+			"show_notification": false
+		})
+	}
+	
+	let heat_types = ["heated","superheated"]
+	function mixing_1a(output){
+		var heat = heat_types[rand()%3]
+		if (heat == "") {
+			event.custom({
+			"type": "create:mixing",
+			"ingredients": [
+				{
+					"item": getRandItem()
+				},
+				{
+					"type": "fluid_stack",
+					"amount": ((rand() % 20)+1)*25,
+					"fluid": getRandFluid()
+				},
+				{
+					"type": "fluid_stack",
+					"amount": ((rand() % 20)+1)*25,
+					"fluid": getRandFluid()
+				}
+			],
+			"results": [
+				{
+					"amount": ((rand() % 20)+1)*50,
+					"id": output
+				}
+			]
+		})
+		}else{
+			event.custom({
+				"type": "create:mixing",
+				"heat_requirement": heat,
+				"ingredients": [
+					{
+						"item": getRandItem()
+					},
+					{
+						"type": "fluid_stack",
+						"amount": ((rand() % 20)+1)*25,
+						"fluid": getRandFluid()
+					},
+					{
+						"type": "fluid_stack",
+						"amount": ((rand() % 20)+1)*25,
+						"fluid": getRandFluid()
+					}
+				],
+				"results": [
+					{
+						"amount": ((rand() % 20)+1)*50,
+						"id": output
+					}
+				]
+			})
+		}
+	}
+	function mixing_2a(output){
+		var heat = heat_types[rand()%3]
+		if (heat == "") {
+			event.custom({
+				"type": "create:mixing",
+				"ingredients": [
+					{
+						"item": getRandItem()
+					},
+					{
+						"type": "fluid_stack",
+						"amount": ((rand() % 20)+1)*25,
+						"fluid": getRandFluid()
+					},
+					{
+						"type": "fluid_stack",
+						"amount": ((rand() % 20)+1)*25,
+						"fluid": getRandFluid()
+					}
+				],
+				"results": [
+					{
+						"amount": 1,
+						"id": output
+					}
+				]
+			})
+		}else{
+			event.custom({
+				"type": "create:mixing",
+				"heat_requirement": heat,
+				"ingredients": [
+					{
+						"item": getRandItem()
+					},
+					{
+						"type": "fluid_stack",
+						"amount": ((rand() % 20)+1)*25,
+						"fluid": getRandFluid()
+					},
+					{
+						"type": "fluid_stack",
+						"amount": ((rand() % 20)+1)*25,
+						"fluid": getRandFluid()
+					}
+				],
+				"results": [
+					{
+						"amount": 1,
+						"id": output
+					}
+				]
+			})
+		}
+	}
+	
+	function mixing_1b(output){
+		var heat = heat_types[rand()%3]
+		if (heat == "") {
+			event.custom({
+				"type": "create:mixing",
+				"ingredients": [
+					{
+						"item": getRandItem()
+					},
+					{
+						"item": getRandItem()
+					}
+				],
+				"results": [
+					{
+						"amount": ((rand() % 20)+1)*50,
+						"id": output
+					}
+				]
+			})
+		}else{
+			event.custom({
+				"type": "create:mixing",
+				"heat_requirement": heat,
+				"ingredients": [
+					{
+						"item": getRandItem()
+					},
+					{
+						"item": getRandItem()
+					}
+				],
+				"results": [
+					{
+						"amount": ((rand() % 20)+1)*50,
+						"id": output
+					}
+				]
+			})
+		}
+	}
+	function mixing_2b(output){
+		var heat = heat_types[rand()%3]
+		if (heat == "") {
+			event.custom({
+				"type": "create:mixing",
+				"ingredients": [
+					{
+						"item": getRandItem()
+					},
+					{
+						"item": getRandItem()
+					}
+				],
+				"results": [
+					{
+						"amount": 1,
+						"id": output
+					}
+				]
+			})
+		}else{
+			event.custom({
+				"type": "create:mixing",
+				"heat_requirement": heat,
+				"ingredients": [
+					{
+						"item": getRandItem()
+					},
+					{
+						"item": getRandItem()
+					}
+				],
+				"results": [
+					{
+						"amount": 1,
+						"id": output
+					}
+				]
+			})
+		}
+	}
+	
+	function makeItemRec(itemId){
+		switch (rand() % 27){
+			case 0:
+				recipe2x2_a(itemId);
+				break;
+			case 1:
+				recipe2x2_b(itemId);
+				break;
+			case 2:
+				shapeless_a(itemId);
+				break;
+			case 3:
+				recipe3x3_a(itemId);
+				break;
+			case 4:
+				recipe3x3_b(itemId);
+				break;
+			case 5:
+				recipe3x3_c(itemId);
+				break;
+			case 6:
+				recipe3x3_d(itemId);
+				break;
+			case 7:
+				shapeless_b(itemId);
+				break;
+			case 8:
+				smithing(itemId);
+				break;
+			case 9:
+				smelting_a(itemId);
+				break;
+			case 10:
+				smelting_b(itemId);
+				break;
+			case 11:
+				smelting_c(itemId);
+				break;
+			case 12:
+				smelting_d(itemId);
+				break;
+			case 13:
+				stonecutting(itemId);
+				break;
+			case 14:
+				filling(itemId);
+				break;
+			case 15:
+				splashing(itemId);
+				break;
+			case 16:
+				sanding(itemId);
+				break;
+			case 17:
+				pressing(itemId);
+				break;
+			case 18:
+				milling(itemId);
+				break;
+			case 19:
+				deploying(itemId);
+				break;
+			case 20:
+				haunting(itemId);
+				break;
+			case 21:
+				crushing(itemId);
+				break;
+			case 22:
+				mechcraft_a(itemId);
+				break;
+			case 23:
+				mechcraft_b(itemId);
+				break;
+			case 24:
+				mechcraft_c(itemId);
+				break;
+			case 25:
+				mixing_2a(itemId);
+				break;
+			case 26:
+				mixing_2b(itemId);
+				break;
+		}
+	}
+	
+	function makeFluidRec(fluidId){
+		switch (rand() % 3){
+			case 0:
+				draining(fluidId);
+				break;
+			case 1:
+				mixing_1a(fluidId);
+				break;
+			case 2:
+				mixing_1b(fluidId);
+				break;
+		}
+	}
+	
+	while (unlockedItems.length + unlockedFluids.length < (allItems.length + allFluids.length)/2)
+		if (canUseFluids) {
+			let id = rand(allItemsUnused.length + allFluidsUnused.length)
+			if (id > allItemsUnused.length) {
+				let fluidId = getTrueRandFluid()
+				makeFluidRec(fluidId)
+			}else{
+				let itemId = getTrueRandItem()
+				makeItemRec(itemId)
+			}
+		}else{
+			let itemId = getTrueRandItem()
+			makeItemRec(itemId)
+		}
+	}
+	
+})

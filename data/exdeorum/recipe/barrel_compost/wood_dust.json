@@ -1,0 +1,7 @@
+{
+  "type": "exdeorum:barrel_compost",
+  "ingredient": {
+    "item": "create_blaze_burner_fuels:wood_dust"
+  },
+  "volume": 15
+}

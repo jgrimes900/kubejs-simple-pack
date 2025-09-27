@@ -1,0 +1,9 @@
+{
+	"parent": "minecraft:block/block",
+    "loader": "neoforge:obj",
+	"flip_v": true,
+    "model": "kubejs:models/item/deku_nut.obj",
+    "textures": {
+        "texture0": "kubejs:item/deku_nut"
+    }
+}

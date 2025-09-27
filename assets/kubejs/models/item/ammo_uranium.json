@@ -1,0 +1,11 @@
+{
+	"parent": "minecraft:block/block",
+    "loader": "neoforge:obj",
+	"flip_v": true,
+    "model": "kubejs:models/item/ammo_uranium.obj",
+    "textures": {
+        "texture0": "kubejs:item/ammo_uranium/hinge",
+        "texture1": "kubejs:item/ammo_uranium/boxtop",
+		"texture2": "kubejs:item/ammo_uranium/boxside"
+    }
+}

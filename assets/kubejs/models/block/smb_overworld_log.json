@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "kubejs:block/smb_overworld_log_end",
+    "side": "kubejs:block/smb_overworld_log_side"
+  }
+}

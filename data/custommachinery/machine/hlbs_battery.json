@@ -1,0 +1,16 @@
+{
+  "name": {
+    "text": "Battery"
+  },
+  "appearance": {
+    "custommachinery:block": "kubejs:block/hlbs_battery"
+  },
+  "components": [
+    {
+      "type": "custommachinery:energy",
+      "capacity": 10000,
+      "max_output": 100,
+	  "max_input": 100
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+	"parent": "minecraft:block/block",
+    "loader": "neoforge:obj",
+	"flip_v": true,
+    "model": "kubejs:models/block/hlbs_battery.obj",
+    "textures": {
+        "texture0": "kubejs:block/hlbs_battery",
+		"particle": "kubejs:block/trrm_pan6"
+    },
+	"emissive_ambient": false
+}

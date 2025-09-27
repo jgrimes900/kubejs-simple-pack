@@ -1,0 +1,81 @@
+{
+  "name": {
+    "text": "Microwave"
+  },
+  "appearance": {
+    "running": {
+      "custommachinery:block": "custommachinery:machine/microwave_on",
+      "custommachinery:light": 7
+    },
+    "custommachinery:block": "custommachinery:machine/microwave"
+  },
+  "components": [
+    {
+      "type": "custommachinery:energy",
+      "capacity": 10000,
+      "max_output": 0
+    },
+    {
+      "type": "custommachinery:item",
+      "id": "input",
+      "mode": "input"
+    },
+    {
+      "type": "custommachinery:item",
+      "id": "output",
+      "mode": "output"
+    }
+  ],
+  "gui": [
+    {
+      "type": "custommachinery:background"
+    },
+    {
+      "type": "custommachinery:player_inventory",
+      "x": 47,
+      "y": 94
+    },
+    {
+      "type": "custommachinery:progress",
+      "x": 111,
+      "y": 38
+    },
+    {
+      "type": "custommachinery:slot",
+      "id": "input",
+      "x": 84,
+      "y": 38,
+      "ghost": {
+        "items": [
+          "minecraft:air"
+        ],
+        "color": {}
+      }
+    },
+    {
+      "type": "custommachinery:slot",
+      "id": "output",
+      "x": 144,
+      "y": 38,
+      "ghost": {
+        "items": [
+          "minecraft:air"
+        ],
+        "color": {}
+      }
+    },
+    {
+      "type": "custommachinery:energy",
+      "x": 56,
+      "y": 26
+    },
+    {
+      "type": "custommachinery:text",
+      "x": 97,
+      "y": 22,
+      "text": {
+        "text": "Microwave"
+      }
+    }
+  ]
+}

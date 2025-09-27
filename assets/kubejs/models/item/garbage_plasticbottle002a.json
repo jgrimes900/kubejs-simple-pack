@@ -1,0 +1,9 @@
+{
+	"parent": "minecraft:block/block",
+    "loader": "neoforge:obj",
+	"flip_v": true,
+    "model": "kubejs:models/item/garbage_plasticbottle002a.obj",
+    "textures": {
+        "texture0": "kubejs:item/garbage001a_01"
+    }
+}

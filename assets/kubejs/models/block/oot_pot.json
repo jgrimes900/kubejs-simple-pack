@@ -1,0 +1,11 @@
+{
+	"parent": "minecraft:block/block",
+    "loader": "neoforge:obj",
+	"flip_v": true,
+    "model": "kubejs:models/block/oot_pot.obj",
+    "textures": {
+        "texture0": "kubejs:block/pot_top",
+		"particle": "kubejs:block/pot_side"
+    },
+	"emissive_ambient": false
+}

@@ -1,0 +1,9 @@
+{
+	"parent": "minecraft:block/block",
+    "loader": "neoforge:obj",
+	"flip_v": true,
+    "model": "kubejs:models/item/tin_can.obj",
+    "textures": {
+        "texture0": "kubejs:item/garbage001a_01"
+    }
+}

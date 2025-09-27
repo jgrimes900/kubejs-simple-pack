@@ -1,0 +1,11 @@
+{
+	"parent": "minecraft:block/block",
+    "loader": "neoforge:obj",
+	"flip_v": true,
+    "model": "kubejs:models/block/mq02radio_tower.obj",
+    "textures": {
+        "texture0": "kubejs:block/mq02radio_tower",
+		"particle": "kubejs:block/fallout_scafolding"
+    },
+	"emissive_ambient": false
+}

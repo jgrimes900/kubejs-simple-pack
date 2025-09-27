@@ -1,0 +1,9 @@
+{
+	"parent": "minecraft:block/block",
+    "loader": "neoforge:obj",
+	"flip_v": true,
+    "model": "kubejs:models/item/sphere.obj",
+    "textures": {
+        "texture0": "minecraft:block/dirt"
+    }
+}
