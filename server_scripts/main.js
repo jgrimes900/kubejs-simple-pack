@@ -5,6 +5,22 @@ ServerEvents.recipes(event => {
 			Item.of('create_blaze_burner_fuels:wood_dust',8)
 		]
 	)
+	
+	event.shapeless(
+		Item.of('kubejs:canned_bolognese_box', 1),
+		[
+			Item.of('kubejs:canned_bolognese',6)
+		]
+	)
+	event.shapeless(
+		Item.of('kubejs:canned_bolognese',6),
+		[
+			Item.of('kubejs:canned_bolognese_box', 1)
+		]
+	)
+	createDeploying(event,'kubejs:canned_bolognese','kubejs:can_opener','kubejs:canned_bolognese_open',true)
+	createEmptying(event,"kubejs:canned_bolognese_open", "kubejs:garbage_metalcan001a", 'kubejs:bolognese', 300)
+	createFilling(event,"kubejs:garbage_metalcan001a", "kubejs:bolognese", 300, "kubejs:canned_bolognese_open", 1)
 
 	createFilling(event,"kubejs:garbage_metalcan001a", "kubejs:uranium_waste", 250, "kubejs:ammo_uranium", 1)
 	

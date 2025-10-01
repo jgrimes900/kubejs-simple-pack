@@ -14,6 +14,10 @@ StartupEvents.registry('item', event => {
 	event.create('garbage_plasticbottle003a') // A plastic 2-liter bottle, in a soda bottle shape.
 	event.create('garbage_takeoutcarton001a') // A Chinese takeout carton, used for holding food.
 	event.create('garbage_takeoutcarton001a_contents').displayName("Fried Rice")
+	event.create('can_opener')
+	event.create('canned_bolognese').displayName("Canned Spaghetti Bolognese")
+	event.create('canned_bolognese_open').displayName("Opened Canned Spaghetti Bolognese")
+	event.create('canned_bolognese_box').displayName("Box of Canned Spaghetti Bolognese").parentModel("kubejs:item/food_parcel_04")
 	
 })
 
@@ -33,7 +37,7 @@ StartupEvents.registry('block', event => {
 	event.create('resonance_casing').texture("kubejs:block/trrm_pan6").soundType('metal') // A casing block using an orange metal plate texture from Half-life
 	event.create('mq02radio_tower').soundType('metal').defaultCutout() // A ~9 block tall radio tower from on of the Fallout games
 	event.create('fallout_scafolding').soundType('metal').defaultCutout() // Scaffolding full-block using the X-beam texture from mq02radio_tower
-	event.create('fallout_casing').soundType('metal').defaultCutout() // A casing block using the metal plate texture from mq02radio_tower
+	event.create('fallout_casing').soundType('metal') // A casing block using the metal plate texture from mq02radio_tower
 	
 })
 
@@ -54,6 +58,9 @@ StartupEvents.registry('fluid', event => {
 		.tint(0xc070c8) // Placeholder color, I don't know what this is supposed to be yet
 	event.create('garbage_plasticbottle003a_contents', 'thin')
 		.tint(0xc0c870) // Ditto
+	event.create('bolognese', 'thick')
+		.displayName('Spaghetti Bolognese')
+		.tint(0xae4938)
 })
 
 PowerfulEvents.registerCapabilities(event => {

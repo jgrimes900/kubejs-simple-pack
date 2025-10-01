@@ -86,3 +86,24 @@ function createMechanicalCrafting(event, pattern, keys, output, output_a, accept
 		}
 	})
 }
+
+function createDeploying(event, input, held_item, output, keep){
+	if (keep == null) {keep = false}
+	event.custom({
+	  "type": "create:deploying",
+	  "ingredients": [
+		{
+		  "item": input
+		},
+		{
+		  "item": held_item
+		}
+	  ],
+	  "keep_held_item": keep,
+	  "results": [
+		{
+		  "id": output
+		}
+	  ]
+	})
+}
